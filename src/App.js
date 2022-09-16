@@ -1,8 +1,14 @@
 import './App.css';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {Component, useEffect, useRef, useState} from 'react';
 import Clock from './Components/Clock';
+import Bitcoin from './Components/Bitcoin';
+import { getBitcoinPrice } from './Components/Bitcoin';
 
 function App() {
+  const[loading, setLoading] = useState(true)
+  const[priceData, setPriceData] = useState(null)
+  const[currency, setCurreny] = useState("USD")
+
   const [timerDays, setTimerDays] = useState();
   const [timerHours, setTimerHours] = useState();
   const [timerMinutes, setTimerMinutes] = useState();
@@ -39,7 +45,18 @@ function App() {
 
   useEffect(() => {
     startTimer();
+
+    async function fetchData() {
+      const res = await fetch(`https://api.coindesk.com/v1/bpi/currentprice.json`)
+      const data = await res.json()
+      setPriceData(data.bpi);
+      setLoading(false);
+
+    }
+    fetchData();
   });
+
+ 
 
   return (
     <div className="App">
@@ -49,6 +66,7 @@ function App() {
       timerMinutes ={timerMinutes}
       timerSeconds ={timerSeconds}
       />
+      <Bitcoin/>
     </div>
   );
 }

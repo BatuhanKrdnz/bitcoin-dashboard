@@ -25,7 +25,7 @@ const Clock = ({timerDays, timerHours, timerMinutes, timerSeconds}) => {
             </section>
         </section>
     </Fragment>
-  )
+  );
 };
 
 Clock.defaultProps = {
