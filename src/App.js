@@ -2,6 +2,7 @@ import './App.css';
 import React, { useEffect, useRef, useState} from 'react';
 import Clock from './Components/Clock';
 import Bitcoin from './Components/Bitcoin';
+import CountdownTimer from './Components/CountdownTimer/CountdownTimer';
 
 function App() {
   const [timerDays, setTimerDays] = useState();
@@ -12,12 +13,12 @@ function App() {
   let interval = useRef();
 
   const startTimer = () => {
-    const countDownDate = new Date('May 30, 2021 00:00:00').getTime();
+    const countDownDate = new Date("May 30,2021 ").getTime();
 
     interval = setInterval(() => {
       const now = new Date().getTime();
 
-      const distance = countDownDate - now;
+      let distance = countDownDate - now;
 
       const days = Math.floor(distance / (24 * 60 * 60 * 1000));
       const hours = Math.floor(
@@ -46,12 +47,12 @@ function App() {
 
   return (
     <div className="App">
-      <Clock 
-      timerDays={timerDays}
-      timerHours ={timerHours} 
-      timerMinutes ={timerMinutes}
-      timerSeconds ={timerSeconds}
+      <Clock
+      timerHours={timerHours}
+      timerMinutes={timerMinutes}
+      timerSeconds={timerSeconds}
       />
+
       <Bitcoin/>
     </div>
   );
